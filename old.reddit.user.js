@@ -2,11 +2,13 @@
 // @name         Lemmy to old.Reddit Re-format (Lemmy v0.18)
 // @namespace    https://github.com/soundjester/lemmy_monkey
 // @description  Reformat widescreen desktop to look more like Reddit
-// @version      2.6
+// @version      2.5
 // @author       mershed_perderders, DarkwingDuck, dx1@lemmy.world, Djones4822, Jakylla
 // @updateURL    https://github.com/soundjester/lemmy_monkey/raw/main/old.reddit.user.js
 // @downloadURL  https://github.com/soundjester/lemmy_monkey/raw/main/old.reddit.user.js
-// @match        https://*/*
+// @match        https://vlemmy.net/*
+// @match        https://lemmy.world/*
+// @match        https://lemmynsfw.com/*
 // @run-at       document-idle
 // ==/UserScript==
 (function() {
@@ -16,7 +18,7 @@
 	/* 70px - compact default          */
 	/* 100px - large thumbnail default */
 	/***********************************/
- 	var thumbnailSize = 70;
+ 	var thumbnailSize = 100;
  	var readingWidth = 940; /*controls the width of comments and text posts on individual post pages - default=940*/
 	/***********************************/
 	//Thank you God!
@@ -38,8 +40,8 @@
 		var postTitleFont = "";
 		var voteBarFont = "";
 		var voteBarTopMargin = "unset"
-		var smallTextFont = "unset !important;";
-		var postPFPSize = "";
+//		var smallTextFont = "unset !important;";
+		var postPFPSize = "1.4rem";
 		var postFedLinks = "";
 	}
 
@@ -136,13 +138,12 @@
 			/*sidebar width*/
 			 .col-md-4 {
 				 flex: 0 0 20% !important;
-				 width: 20% !important;
+				 width: 20%;
 			}
 			/*main post area (witdh optimized for widescreen)*/
 			 .col-md-8 {
 				 flex: 0 0 80% !important;
 				 width: 80%;
-			         max-width: unset;
 			}
 			/* Fix user drop down menu position */
 			 .dropdown-content {
@@ -244,7 +245,7 @@
 				 min-width: `+thumbnailSize+`px !important;
 				 max-width: `+thumbnailSize+`px !important;
 			   background-color: #333;
-				 object-fit: scale-down; /* instead of "cover" */
+				 object-fit: cover; /* instead of "scale-down" */
 			}
 			/*this is needed for videos/gifs*/
 			 .embed-responsive {
@@ -309,20 +310,18 @@
 				}
 			}
 			 @media screen and (max-width: 1199px) and (min-width: 992px) {
-				.col-12 {
-					flex: 1 0 75% !important;
+			        .col-12 {
+				          flex: 0 0 100% !important;
+				          max-width: 75%;
+			        }
+				 .col-md-4 {
+					 flex: 0 0 25% !important;
+					 max-width: 25%;
 				}
-				.col-md-4 {
-					flex: 0 0 25% !important;
-					max-width: 25%;
-				}
-				.vote-bar {
-					flex: 0 0 8% !important;
-					max-width: 8% !important;
-				}
-				.col-sm-9 {
-					max-width: unset !important;
-				}
+			        .vote-bar {
+				          flex: 0 0 8% !important;
+				          max-width: 8% !important;
+			        }
 			}
 			 @media screen and (max-width: 768px) and (min-width: 576px) {
 			        .col-12 {
@@ -344,6 +343,7 @@
 				}
 				 .col-12 {
 					 flex: 0 0 100% !important;
+					 max-width: 100%;
 				}
 				 .col-8 {
 					 flex: 0 0 75% !important;
